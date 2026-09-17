@@ -1,0 +1,6 @@
+# Separate Python 3.11 environment; compatible with an existing SMPL-X install.
+# No model weights are included. Preparation runs on CPU.
+numpy==1.26.4
+scipy==1.17.1
+smplx==0.1.28
+torch==2.14.0

@@ -1,0 +1,3 @@
+[submodule "external/umr_trial_20260908"]
+	path = external/umr_trial_20260908
+	url = https://github.com/longchengzhuo/Unified-Motion-Retargeting.git

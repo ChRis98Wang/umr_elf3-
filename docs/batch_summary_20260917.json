@@ -1,0 +1,36 @@
+{
+  "schema": "umr_elf3.public_batch_summary/1",
+  "date": "2026-09-17",
+  "timezone": "Asia/Shanghai",
+  "scope": "local collection, not the entire AMASS release",
+  "state": "stopped_by_user",
+  "total_sources": 9483,
+  "archived_stage2_complete": 487,
+  "frames_at_50hz": 186735,
+  "refinement_complete": 465,
+  "by_status": {
+    "quarantined_quality": 461,
+    "kinematic_review_required": 4,
+    "raw_complete_refinement_pending": 22
+  },
+  "ik_failures_recorded": 0,
+  "quality_failure_counts_overlap": {
+    "optimizer_not_converged": 398,
+    "foot_min_z_negative": 358,
+    "original_self_collision": 314,
+    "tip_p95_over_20mm": 195,
+    "tip_max_over_50mm": 150,
+    "visual_hull_collision": 14,
+    "joint_speed_over_urdf": 3
+  },
+  "refinement_pending_reasons": {
+    "multiple_root_rotation_charts_unsupported": 12,
+    "long_continuous_refinement_unsupported": 8,
+    "mesh_separation_bounds_did_not_converge": 2
+  },
+  "training_approved": 0,
+  "policy_training_started": false,
+  "physical_tracking_validated": false,
+  "remaining_processes_after_stop": 0,
+  "note": "Finalized job receipts only; interrupted attempts remain local and are not counted as complete."
+}
