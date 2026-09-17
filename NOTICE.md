@@ -4,7 +4,13 @@ The root MIT license covers this repository's adapter code, tests and original
 documentation. It does **not** relicense third-party software, robot assets,
 human models, motion datasets, or generated motion data.
 
-- **UMR backend:** [longchengzhuo/Unified-Motion-Retargeting](https://github.com/longchengzhuo/Unified-Motion-Retargeting),
+- **Official UMR path:** [hanyang9/UMR](https://github.com/hanyang9/UMR),
+  commit `e24fc070030dc0bb0b2c024ecb9f795a3995d725`. Downloaded separately under
+  ignored local paths, unmodified. No project-level LICENSE was present at this
+  pin; do not assume our MIT license covers the upstream. The minimal SMPL-X
+  dependency follows the official fork, commit
+  `a5b8e4ac14f79f3f33fd2cf2a16e6f507146b813`, under its own terms.
+- **Historical UMR backend:** [longchengzhuo/Unified-Motion-Retargeting](https://github.com/longchengzhuo/Unified-Motion-Retargeting),
   commit `0aa1855fe4f65a73681ffbd1d9f95ab1c2bad9ca`, MIT. This is an
   **unofficial independent implementation**, not the original paper authors'
   official release. The unmodified Git submodule carries its own LICENSE.
@@ -16,10 +22,16 @@ human models, motion datasets, or generated motion data.
 - **AMASS and SMPL-X:** obtain data and body models separately from
   [AMASS](https://amass.is.tue.mpg.de/) and [SMPL-X](https://smpl-x.is.tue.mpg.de/)
   under their applicable terms. Neither raw inputs nor derived surfaces,
-  correspondence artifacts, trajectories, recordings or weights are bundled.
+  correspondence artifacts, AMASS-derived trajectories/recordings or weights are bundled.
   This project's MIT license does not grant permission to redistribute them.
   See the [data card](docs/DATASET.md) for the local bundle and its pending
   redistribution-permission review; the bundle itself is not uploaded.
+- **Demo videos:** the three `docs/media/official_*` MP4/GIF pairs show ELF3
+  kinematic results from our self-authored parametric human motions, not AMASS
+  clips. They are noncommercial research visualizations, not trained policies.
+  Robot appearance derives from the attributed ELF3 assets; the source human
+  model is SMPL-X (Pavlakos et al., CVPR 2019). Neither mesh/model is included.
+  Provenance and screening results are in `docs/media/manifest.json`.
 - **Development origin:** extracted from the local ELF3 adaptation work in
   [scalebfm-loco](https://github.com/ChRis98Wang/scalebfm-loco), developed alongside
   [ScaleBFM](https://github.com/zengweishuai/ScaleBFM). ScaleTrack, ScaleBridge,

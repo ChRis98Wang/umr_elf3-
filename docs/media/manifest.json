@@ -1,0 +1,103 @@
+{
+  "schema": "umr_elf3.authored_demo_media/1",
+  "upstream_commit": "e24fc070030dc0bb0b2c024ecb9f795a3995d725",
+  "source_generator_sha256": "aa64939abf3eb041c148b881d1ca23a087f3e40368d3657723d55bc4c384db21",
+  "rows": [
+    {
+      "name": "arm_raise",
+      "source_kind": "authored_parametric_smplx",
+      "amass_used": false,
+      "source_sha256": "a1217c50832b87eb3c6b3edee0325d9761710fab5114bd9d0861645659ee63dc",
+      "motion_sha256": "0404d1aa3de847b71ae65dfde19f0b6af223bc27cf26b9279d76575e720a8676",
+      "official_result_sha256": "d1e2504bbdfb33b7d2b70d0395abd68a69ecd09196ea8b01f30b97321cd54a89",
+      "frames": 151,
+      "fps": 50.0,
+      "elapsed_s": 31.703458276002493,
+      "qpos_unchanged_from_official_final": true,
+      "official_lqr_filter_enabled": true,
+      "training_approved": false,
+      "policy_inference": false,
+      "files": {
+        "official_arm_raise.gif": {
+          "sha256": "3c7f69dda382e24ca237a6b4c183ea6fe25e8b9fa01f4488587ac7402b44435e",
+          "bytes": 2250071
+        },
+        "official_arm_raise.mp4": {
+          "sha256": "e9796fbe987729406112432b80008b61e998849eefcaba8c2570172ee899858b",
+          "bytes": 692931
+        }
+      },
+      "screening": {
+        "joint_limit_violation_frames": 0,
+        "joint_speed_over_urdf_limit_intervals": 0,
+        "foot_visual_mesh_min_z_m": 0.015435760751231452,
+        "original_collision_self_penetration_max_m": 0.0
+      }
+    },
+    {
+      "name": "arm_wave",
+      "source_kind": "authored_parametric_smplx",
+      "amass_used": false,
+      "source_sha256": "1d197dd290a3a34a2e1bc36cd06373ff252505e1c6bffb1c2976fb885f7e4f98",
+      "motion_sha256": "0111d7e846eadb0c60b00c2b34fb242b62c8f8a4057ecc9c63312e2c2de98763",
+      "official_result_sha256": "d0a615ec449718899964263a38d212a38f07a88cc688e7e6316d5f11acb181b2",
+      "frames": 151,
+      "fps": 50.0,
+      "elapsed_s": 31.45318055100506,
+      "qpos_unchanged_from_official_final": true,
+      "official_lqr_filter_enabled": true,
+      "training_approved": false,
+      "policy_inference": false,
+      "files": {
+        "official_arm_wave.gif": {
+          "sha256": "4dbb04d6cd6f9c5e3605228a40da0ce4fa41542adf7df451fb94b74ba7be74b8",
+          "bytes": 2066807
+        },
+        "official_arm_wave.mp4": {
+          "sha256": "dd20c0b2e67a84e3bb4ade5c22e3bcda4f8169c2ce5c31b48510ed2512c28f28",
+          "bytes": 556254
+        }
+      },
+      "screening": {
+        "joint_limit_violation_frames": 0,
+        "joint_speed_over_urdf_limit_intervals": 0,
+        "foot_visual_mesh_min_z_m": 0.015397673369382896,
+        "original_collision_self_penetration_max_m": 0.0
+      }
+    },
+    {
+      "name": "shallow_squat",
+      "source_kind": "authored_parametric_smplx",
+      "amass_used": false,
+      "source_sha256": "e15dae7e502b03819d478e15889b1855718be1796e30efb8b4f87c9e5a599ed5",
+      "motion_sha256": "150c1e89a3c11dd53f533dc6918dce47e90dc2bd8547d7f6a267504e079baa3f",
+      "official_result_sha256": "695da25e49c4689430012bd6a72cdee720cf04997b1e60d0a2b3b03adbf294ba",
+      "frames": 151,
+      "fps": 50.0,
+      "elapsed_s": 31.518934765997983,
+      "qpos_unchanged_from_official_final": true,
+      "official_lqr_filter_enabled": true,
+      "training_approved": false,
+      "policy_inference": false,
+      "files": {
+        "official_shallow_squat.gif": {
+          "sha256": "7b1e361e37d97b4b094ef588fa259dcf2179de08820a86d61918a02003a5c50a",
+          "bytes": 2142383
+        },
+        "official_shallow_squat.mp4": {
+          "sha256": "6cf9fc5052c26dc3a686c44b6e99ad9b24c283d78c2484d68b773e5a82a0d101",
+          "bytes": 803489
+        }
+      },
+      "screening": {
+        "joint_limit_violation_frames": 0,
+        "joint_speed_over_urdf_limit_intervals": 0,
+        "foot_visual_mesh_min_z_m": 0.015363256027684718,
+        "original_collision_self_penetration_max_m": 0.0
+      }
+    }
+  ],
+  "scope": "robot-only research visualization; no AMASS sources, robot meshes or body models included",
+  "collision_screen_scope": "enabled original URDF colliders only, not full-body certification",
+  "quality_claim": "pipeline execution examples only; not trained policies or physical task success"
+}

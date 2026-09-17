@@ -1,140 +1,79 @@
-# UMR → ELF3
+# Official UMR → ELF3
 
 [![CPU checks](https://github.com/ChRis98Wang/umr_elf3-/actions/workflows/ci.yml/badge.svg)](https://github.com/ChRis98Wang/umr_elf3-/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/adapter-MIT-blue.svg)](LICENSE)
 
-将 AMASS **SMPL-X** 动作重定向到 **ELF3 31 自由度机器人**的实验性工具链。
-包括人体表面准备、UMR 神经对应学习、逐帧 IK、全身轨迹优化、质量检查与可停止的批处理。
+将人体动作重定向到 **ELF3 31 自由度机器人**。新接入流程使用作者的
+[官方 UMR](https://github.com/hanyang9/UMR)，固定版本 `e24fc070`；保留原始
+URDF 关节轴、限位和质量，提供完整动作处理、质量检查、GIF / MP4 与来源校验。
 
-Experimental AMASS/SMPL-X → ELF3 retargeting with learned surface correspondence,
-MuJoCo/Mink IK and model-based trajectory refinement. **Kinematic references,
-not an ELF3 control policy or a completed ScaleBFM reproduction.**
+Official UMR integration for ELF3, with full-clip retargeting and auditable
+kinematic demos. **Not a trained control policy or a completed ScaleBFM reproduction.**
 
-> 依赖的是固定版本的[非官方 UMR 实现](https://github.com/longchengzhuo/Unified-Motion-Retargeting)。
-> 当前穿地、自碰撞和优化收敛仍有问题。没有训练好的 ELF3 策略，不可直接部署实机。
+[官方安装与运行](docs/OFFICIAL_UMR.md) · [实跑结果](docs/OFFICIAL_VALIDATION_20260917.md) ·
+[历史数据状态](docs/STATUS.md) · [数据授权边界](docs/DATASET.md)
 
-**已实跑独立仓库**：2026-09-17，用一个完整的 191 帧样本重新执行人体表面准备、
-2,500 epoch 对应学习、IK、全身优化和本地录像，约 139 秒完成计算队列。
-IK 失败数为 0，优化收敛，结果为“运动学待复核”；没有运行闭环控制或实机。
-见[实跑记录](docs/SMOKE_TEST_20260917.md)。
+## 实际运行示例
 
-[安装](docs/SETUP.md) · [技术路线](docs/TECHNICAL_ROUTE.md) ·
-[数据说明](docs/DATASET.md) · [已知问题](docs/STATUS.md)
+以下为本仓库实际运行的 **官方 UMR 输出**，不是直接编写 ELF3 关节动画。
+输入为本仓库自建的人体参数动作，**不使用 AMASS 动捕片段**；每段完整 151 帧、50 Hz。
+GIF 可直接观看，点击图片或 MP4 链接查看原始录像。
 
-## 当前能做什么
+| 双臂抬起 | 单臂摆动 | 浅蹲与起身 |
+|---|---|---|
+| [![官方 UMR：ELF3 双臂抬起](docs/media/official_arm_raise.gif)](docs/media/official_arm_raise.mp4) | [![官方 UMR：ELF3 单臂摆动](docs/media/official_arm_wave.gif)](docs/media/official_arm_wave.mp4) | [![官方 UMR：ELF3 浅蹲与起身](docs/media/official_shallow_squat.gif)](docs/media/official_shallow_squat.mp4) |
+| [MP4 原文件](docs/media/official_arm_raise.mp4) | [MP4 原文件](docs/media/official_arm_wave.mp4) | [MP4 原文件](docs/media/official_shallow_squat.mp4) |
 
-- 从原始 SMPL-X 网格采样人体表面，保留完整动作的 50 Hz 时钟与首帧朝向证据。
-- 保留 ELF3 原始 31 个关节的名称、轴、限位与惯量；不套用 G1 的 29 自由度导出格式。
-- 按实际人体形状与机器人几何校验并复用 Stage I 对应；Stage II 连续求解整条动作。
-- 对根位姿和全部关节做三次 B 样条优化，检查末端漂移、关节速度、脚底高度与碰撞。
-- 1–4 个有界后台任务、输入/结果 SHA-256 校验、断点续跑、失败隔离和整个进程组清理。
-- 保留已有动作对比、MP4/GIF 导出与历史候选动作切换 GUI 工具。
+**这些是 MuJoCo 运动学回放，不是策略推理、物理控制或实机演示。**
+官方默认 LQR 平滑保留，没有叠加旧版轨迹优化器。三个示例的关节角度/速度超限均为 0；
+脚部最低高度约为地面以上 15.4 mm，尚不能证明真实足底接触或平衡。
+它们展示流程可运行，不代表动作库整体质量达标。
+[录像来源与校验值](docs/media/manifest.json) · [示例说明](docs/DEMO_VIDEOS.md)
 
-## 真实进度：2026-09-17 停止快照
+## 做到哪一步
 
-| 项目 | 数量 |
-|---|---:|
-| 本地去重动作计划（不是整个官方 AMASS） | 9,483 |
-| 完成 UMR 重定向并归档 | 487 |
-| 产生全身优化结果 | 465 |
-| 通过当前运动学门槛，仍待复核 | 4 |
-| 优化结果质量不合格，隔离 | 461 |
-| 原始重定向完成、优化未完成 | 22 |
-| 正式批准训练 / 已启动 ELF3 策略训练 | 0 / 否 |
+| 工作项 | 当前状态 |
+|---|---|
+| ELF3 31 关节接入 | URDF/MJCF 轴、限位、质量及随机姿态 FK 校验通过 |
+| 官方 UMR 对应学习 → 重定向 → 导出 | 1 条完整 AMASS 样本 + 3 条自建示例跑通，共 644 帧 |
+| 实际 GIF / MP4 示例 | 上述 3 段，包含来源、结果哈希和质量标注 |
+| 原有非官方批处理结果 | 487 条原始结果 / 465 条优化候选；保留作对照，未转为官方数据 |
+| 全库迁移与质量验收 | **未完成**；9,483 条计划未重新批量执行 |
+| ELF3 策略训练、物理跟踪、搬箱与实机 | **未完成**；没有训练批准数据或已训练 ELF3 策略 |
 
-队列已按要求停止；4 条待复核不是 4 条训练合格数据。
-完整问题分类见[状态与限制](docs/STATUS.md)，可机器读取的汇总见
-[batch_summary_20260917.json](docs/batch_summary_20260917.json)。
+官方实跑用独立 Python 3.12 环境，不修改旧 UMR 或 IsaacLab 环境。
+本地测试：**201 项，174 通过、27 明确跳过**。CPU 测试通过不等于动作质量验收。
 
-本次实跑复用了上述库中的一个源动作，不增加独立动作数量。
-
-## 已有重定向数据
-
-已在本地整理出 **487 条原始重定向 + 465 条优化候选**，共 952 个轨迹文件，
-机器人状态包约 **94.17 MiB**。包内原始 `qpos`、时间和关节名称数值不变，
-不含人体表面、SMPL-X 模型、机器人网格或本机路径；不合格候选单独标记。
-
-**公开下载暂未开放：等待 AMASS 派生数据的再分发许可确认。**
-代码的 MIT 许可证不覆盖这批数据；不能把 487 条“计算完成”写成“训练合格”。
-数据格式、SHA-256、质量分类与本地打包命令见[数据卡](docs/DATASET.md)。
-
-## 快速开始
-
-Linux + systemd 用户服务。批处理当前要求 NVIDIA GPU（Stage I）和两个 Python 环境：
-UMR Python 3.10、SMPL-X 准备 Python 3.11。已有环境可直接使用，**不需要 IsaacLab**。
-依赖、模型准备和资源预算见[安装说明](docs/SETUP.md)。
+## 开始使用
 
 ```bash
 git clone --recurse-submodules https://github.com/ChRis98Wang/umr_elf3-.git
 cd umr_elf3-
-
-# 换成自己的路径；不要将 AMASS、人体模型或生成数据提交到 Git。
-UMR_PY=/absolute/path/to/umr-venv/bin/python
-SMPLX_PY=/absolute/path/to/smplx-venv/bin/python
-AMASS_ROOT=/absolute/path/to/licensed/amass
-BODY_MODEL=/absolute/path/to/SMPLX_NEUTRAL_2020.npz
-
-# 从固定的上游版本获取 ELF3；不执行下载的 Python 文件。
-"$UMR_PY" scripts/elf3_umr_asset.py fetch --output local/elf3_assets
-"$UMR_PY" scripts/elf3_umr_asset.py convert --assets local/elf3_assets --output local/elf3_model
-"$UMR_PY" scripts/prepare_elf3_migration.py contract --assets local/elf3_assets --output local/contract
-
-# 只生成清单和计划，不开始求解或训练。
-"$UMR_PY" scripts/prepare_elf3_migration.py inventory \
-  --source-root "$AMASS_ROOT" --body-model "$BODY_MODEL" --output local/inventory
-"$UMR_PY" scripts/plan_elf3_batch.py \
-  --inventory local/inventory/inventory.json --contract local/contract/joint_contract.json \
-  --output local/plan
-
-# 默认只打印命令，不启动。确认 missing_body_model_files=0 和资源后，加 --start。
-"$UMR_PY" scripts/launch_elf3_library.py \
-  --name library --batch-plan local/plan/batch_plan.json \
-  --assets local/elf3_assets --robot-xml local/elf3_model/elf3.xml \
-  --body-model "$BODY_MODEL" --prepare-python "$SMPLX_PY" \
-  --output local/library --workers 4
 ```
 
-实际启动时，在最后一条命令末尾加 `--start`。第一次建议只对一个小的、合法持有的
-数据目录建立计划，并使用 `--workers 1`；全库优化通过率目前很低。
-目录中的每条动作仍会完整处理，不为测试截短动作。
+按[官方接入指南](docs/OFFICIAL_UMR.md)下载固定版本的官方 UMR 及必需的 LFS
+分区文件，建立独立环境，指定自己合法持有的 ELF3 资产和 SMPL-X 模型。
 
 ```bash
-# 查看状态、日志；主动停止会清理该服务的子进程。
-python3 -m json.tool local/library/status.json
-journalctl --user -u bfm-umr-refresh-elf3-library.service -n 40 --no-pager
-systemctl --user stop bfm-umr-refresh-elf3-library.service
+# prepare 只准备完整源动作及 ELF3 配置；run 才执行学习和重定向。
+local/venv_umr_official/bin/python scripts/run_official_elf3.py prepare --help
+local/venv_umr_official/bin/python scripts/run_official_elf3.py run --help
+
+# 对已经完成的官方结果导出录像。
+MUJOCO_GL=egl local/venv_umr_official/bin/python scripts/preview_official_elf3.py \
+  --run local/official_trial --output local/official_preview
 ```
 
-续跑需原命令加 `--resume --start`，代码、输入路径、配方和校验值必须完全一致。
-**不能用这个独立仓库直接续跑旧 ScaleBFM 工作区的冻结队列**；保留旧目录和运行器。
+历史非官方后端仍位于 `external/umr_trial_20260908`，仅供复现和比较；
+旧入口 `launch_elf3_library.py` **仍运行旧后端**，不会自动切换成官方。
+见[旧环境安装](docs/SETUP.md)、[技术路线](docs/TECHNICAL_ROUTE.md)与[工具说明](docs/TOOLS.md)。
 
-## 测试与可视化
+## 数据与许可证
 
-```bash
-"$UMR_PY" -m unittest discover -s tests -p 'test_*.py' -v
+适配代码 MIT **不覆盖**第三方 UMR、ELF3 资产、人体模型或动作数据。
+官方代码保留在本地独立 checkout，没有作为本仓库 MIT 代码重新分发。
+仓库中的示例录像仅展示机器人渲染，不包含人体模型或机器人网格。
 
-# 对已生成的原始轨迹做运动学录像，不启动策略、不进行物理推进。
-MUJOCO_GL=egl "$UMR_PY" scripts/run_elf3_umr_trial.py preview \
-  --output local/library/job_00000/attempt_000/raw
-```
-
-GUI 的候选套件格式与同帧对比说明见[工具与输出格式](docs/TOOLS.md)。
-公开 CI 只测数值、合成几何和队列逻辑；需要私有 ELF3/AMASS 产物的测试会明确跳过，
-不能把 CI 通过当作动作质量或物理跟踪验收。
-
-当前本地测试：**185 项发现，158 项通过、27 项明确跳过**。
-MP4/GIF 是本地运动学回放，不是策略输出；目前没有随代码公开上传录像。
-
-## 技术文档与边界
-
-- [技术路线与模型解释](docs/TECHNICAL_ROUTE.md)
-- [安装、资源与依赖](docs/SETUP.md)
-- [已知问题、当前数据与下一步](docs/STATUS.md)
-- [独立打包验证记录](docs/RELEASE_VALIDATION.md)
-- [完整样本实跑记录](docs/SMOKE_TEST_20260917.md)
-- [重定向数据格式与发布状态](docs/DATASET.md)
-- [工具、输出及复现边界](docs/TOOLS.md)
-- [贡献与发布规则](CONTRIBUTING.md)
-
-适配代码采用 MIT；第三方 UMR、ELF3 资产、AMASS、SMPL-X 分别遵循各自条款。
-**本仓库不包含人体模型、动作数据、训练权重或机器人网格。** 详见 [NOTICE](NOTICE.md)。
+AMASS 派生数据包（487 条原始结果 + 465 条优化候选，约 94.17 MiB）仍仅在本地，
+公开下载等待再分发许可确认。原全库队列保持停止。
+详见 [NOTICE](NOTICE.md)、[数据卡](docs/DATASET.md)与[贡献规则](CONTRIBUTING.md)。

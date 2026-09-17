@@ -1,0 +1,22 @@
+# Isolated Python 3.12 environment; ELF3 + AMASS SMPL-X path only.
+# Official UMR source: e24fc070030dc0bb0b2c024ecb9f795a3995d725.
+# Install Torch separately: the local RTX 5080 run uses torch==2.12.0 (+cu130),
+# not the upstream README's older torch==2.4.1/cu121 recipe.
+numpy==1.26.4
+scipy==1.17.1
+mujoco==3.3.7
+clarabel==0.11.1
+cholespy==2.2.0
+glfw==2.10.2
+imageio==2.37.4
+imageio-ffmpeg==0.6.0
+joblib==1.6.0
+Pillow==12.3.0
+PyYAML==6.0.3
+rtree==1.4.1
+tqdm==4.70.1
+embreex==4.4.0
+trimesh==5.1.0
+viser==1.1.1
+warp-lang==1.17.0
+smplx @ git+https://github.com/ZhengyiLuo/smplx.git@a5b8e4ac14f79f3f33fd2cf2a16e6f507146b813

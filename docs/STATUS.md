@@ -66,3 +66,10 @@ a first-item/default-on-screen starting position.
 Keep the original workspace to resume old jobs: their manifests bind absolute
 paths and code hashes. Portability edits are a new code snapshot, not permission
 to alter those receipts.
+# Official integration update
+
+The historical counts below describe the stopped **unofficial** pipeline.
+The new official backend has separately completed four small validation runs;
+see [official validation](OFFICIAL_VALIDATION_20260917.md) and the
+[three actual demo videos](DEMO_VIDEOS.md). No old result has been relabeled,
+and neither backend has produced an approved ELF3 training dataset.

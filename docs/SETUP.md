@@ -1,5 +1,8 @@
 # Installation and local prerequisites
 
+> Historical **unofficial** backend instructions. For the new official UMR path,
+> use [OFFICIAL_UMR.md](OFFICIAL_UMR.md). The environments are kept separate.
+
 ## 1. Checkout
 
 ```bash

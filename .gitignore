@@ -31,6 +31,13 @@ dist/
 *.usd*
 *.mp4
 *.gif
+# Only the explicitly reviewed self-authored demo renders may be published.
+!/docs/media/official_arm_raise.gif
+!/docs/media/official_arm_raise.mp4
+!/docs/media/official_arm_wave.gif
+!/docs/media/official_arm_wave.mp4
+!/docs/media/official_shallow_squat.gif
+!/docs/media/official_shallow_squat.mp4
 *.tar*
 *.zip
 *.log
