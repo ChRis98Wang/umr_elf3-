@@ -18,6 +18,8 @@ human models, motion datasets, or generated motion data.
   under their applicable terms. Neither raw inputs nor derived surfaces,
   correspondence artifacts, trajectories, recordings or weights are bundled.
   This project's MIT license does not grant permission to redistribute them.
+  See the [data card](docs/DATASET.md) for the local bundle and its pending
+  redistribution-permission review; the bundle itself is not uploaded.
 - **Development origin:** extracted from the local ELF3 adaptation work in
   [scalebfm-loco](https://github.com/ChRis98Wang/scalebfm-loco), developed alongside
   [ScaleBFM](https://github.com/zengweishuai/ScaleBFM). ScaleTrack, ScaleBridge,

@@ -14,6 +14,7 @@
 | `diagnose_elf3_arm_motion.py` | Endpoint/joint motion and arm/core convex-hull metrics |
 | `check_elf3_visual_intersections.py` | Selected triangle-level intersection checks |
 | `run_elf3_umr_trial.py preview` | Labeled kinematic MP4/GIF export from a run directory |
+| `package_elf3_motions.py` | Hash-checked local robot-state bundle; preserves quality classes, never uploads |
 
 Every command exposes `--help`. Run paths are intentionally explicit and
 outputs normally refuse to overwrite an existing directory.

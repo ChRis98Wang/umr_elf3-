@@ -1,5 +1,11 @@
 # Standalone packaging validation
 
+Follow-up: the README workflow was actually run end-to-end on one complete
+191-frame source; see [the smoke-test record](SMOKE_TEST_20260917.md).
+After adding the local bundle exporter and nine synthetic export tests, the
+suite has **185 discovered, 158 passed, 27 explicitly skipped, zero failures**.
+The figures below preserve the original packaging-only validation snapshot.
+
 Recorded on 2026-09-17. This validates the packaged **code**, not an accepted
 ELF3 dataset or a trained controller. The production queue stayed stopped.
 

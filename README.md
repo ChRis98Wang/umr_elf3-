@@ -13,6 +13,14 @@ not an ELF3 control policy or a completed ScaleBFM reproduction.**
 > 依赖的是固定版本的[非官方 UMR 实现](https://github.com/longchengzhuo/Unified-Motion-Retargeting)。
 > 当前穿地、自碰撞和优化收敛仍有问题。没有训练好的 ELF3 策略，不可直接部署实机。
 
+**已实跑独立仓库**：2026-09-17，用一个完整的 191 帧样本重新执行人体表面准备、
+2,500 epoch 对应学习、IK、全身优化和本地录像，约 139 秒完成计算队列。
+IK 失败数为 0，优化收敛，结果为“运动学待复核”；没有运行闭环控制或实机。
+见[实跑记录](docs/SMOKE_TEST_20260917.md)。
+
+[安装](docs/SETUP.md) · [技术路线](docs/TECHNICAL_ROUTE.md) ·
+[数据说明](docs/DATASET.md) · [已知问题](docs/STATUS.md)
+
 ## 当前能做什么
 
 - 从原始 SMPL-X 网格采样人体表面，保留完整动作的 50 Hz 时钟与首帧朝向证据。
@@ -37,6 +45,18 @@ not an ELF3 control policy or a completed ScaleBFM reproduction.**
 队列已按要求停止；4 条待复核不是 4 条训练合格数据。
 完整问题分类见[状态与限制](docs/STATUS.md)，可机器读取的汇总见
 [batch_summary_20260917.json](docs/batch_summary_20260917.json)。
+
+本次实跑复用了上述库中的一个源动作，不增加独立动作数量。
+
+## 已有重定向数据
+
+已在本地整理出 **487 条原始重定向 + 465 条优化候选**，共 952 个轨迹文件，
+机器人状态包约 **94.17 MiB**。包内原始 `qpos`、时间和关节名称数值不变，
+不含人体表面、SMPL-X 模型、机器人网格或本机路径；不合格候选单独标记。
+
+**公开下载暂未开放：等待 AMASS 派生数据的再分发许可确认。**
+代码的 MIT 许可证不覆盖这批数据；不能把 487 条“计算完成”写成“训练合格”。
+数据格式、SHA-256、质量分类与本地打包命令见[数据卡](docs/DATASET.md)。
 
 ## 快速开始
 
@@ -75,7 +95,8 @@ BODY_MODEL=/absolute/path/to/SMPLX_NEUTRAL_2020.npz
 ```
 
 实际启动时，在最后一条命令末尾加 `--start`。第一次建议只对一个小的、合法持有的
-数据目录建立计划；全库优化通过率目前很低。
+数据目录建立计划，并使用 `--workers 1`；全库优化通过率目前很低。
+目录中的每条动作仍会完整处理，不为测试截短动作。
 
 ```bash
 # 查看状态、日志；主动停止会清理该服务的子进程。
@@ -101,12 +122,17 @@ GUI 的候选套件格式与同帧对比说明见[工具与输出格式](docs/TO
 公开 CI 只测数值、合成几何和队列逻辑；需要私有 ELF3/AMASS 产物的测试会明确跳过，
 不能把 CI 通过当作动作质量或物理跟踪验收。
 
+当前本地测试：**185 项发现，158 项通过、27 项明确跳过**。
+MP4/GIF 是本地运动学回放，不是策略输出；目前没有随代码公开上传录像。
+
 ## 技术文档与边界
 
 - [技术路线与模型解释](docs/TECHNICAL_ROUTE.md)
 - [安装、资源与依赖](docs/SETUP.md)
 - [已知问题、当前数据与下一步](docs/STATUS.md)
 - [独立打包验证记录](docs/RELEASE_VALIDATION.md)
+- [完整样本实跑记录](docs/SMOKE_TEST_20260917.md)
+- [重定向数据格式与发布状态](docs/DATASET.md)
 - [工具、输出及复现边界](docs/TOOLS.md)
 - [贡献与发布规则](CONTRIBUTING.md)
 
